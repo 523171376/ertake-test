@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>测试</title>
+		<script src="js/system.js" type="text/javascript" charset="utf-8"></script>
+		<style>
+			body {
+				margin: 0;
+			}
+			.contaniner {
+			    padding: 2em;
+			    border: .2em solid #bddfec;
+			    margin: 1em;
+			    box-shadow: 0px 0px 13px #a1b7ce;
+			}
+			.contaniner span {
+			    margin: .2em;
+			    width: 100px;
+			    height: 150px;
+			    display: inline-block;
+			    position: relative;
+			    overflow: hidden;
+			}
+			.contaniner span:hover:after{
+				content: "X";
+				position: absolute;
+				top: 0;
+				right: 3px;
+				color: crimson;
+				z-index: 1;
+			}
+			.contaniner span img{
+				width: inherit;
+				height: 110px;
+			}
+			.contaniner span i {
+				width: inherit;
+			    text-align: center;
+			    display: block;
+			}
+			.btn {
+			    padding: 1em;
+			    text-align: center;
+			    border: 1px solid #e2e2e2;
+			    margin: 1em;
+			    background: #eaeaea;
+			    box-shadow: 1px 1px 5px #848484, 1px 1px 3px #fff inset;
+		        color: #6495ed;
+		        cursor: pointer;
+			}
+			.contaniner span .close{
+			    position: absolute;
+				top: 1px;
+				right: 0;
+				width: 15px;
+				height: 20px;
+				cursor: pointer;
+				z-index: 10;
+			}
+			.contaniner span .openImg{
+				cursor: pointer;
+			}
+			#dialog {
+			    width: 100%;
+			    height: 100%;
+			    text-align: center;
+			    top: 0;
+			    position: absolute;
+			    z-index: 1000;
+			}
+			#dialog div {
+				width: 300px;
+				height: 400px;
+		        border: .4em solid #FFFFFF;
+			    border-radius: .5em;
+			    box-shadow: 3px 3px 10px #737373;
+			    position: relative;
+			    top: 50%;
+			    margin-top: -200px;
+		        display: inline-block;
+			}
+			#dialog div .big-img {
+				width: inherit;
+				height: inherit;
+			}
+			#dialog div .close-img {
+			    position: absolute;
+			    top: 3px;
+			    right: 3px;
+			    z-index: 10;
+			    cursor: pointer;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="contaniner" ></div>
+		<div class="btn">点 击 选 择</div>
+		<input id="file_input" type="file" multiple="multiple" style="display: none;"/>
+	</body>
+	<script>
+		var Dialog = function(){
+			return {
+				open: function(src){
+					var divParent = document.createElement('div');
+					divParent.id = 'dialog';
+					var div = document.createElement('div');
+					var closeImg = document.createElement('img');
+					closeImg.className = 'close-img';
+					closeImg.src = 'img/close.png';
+					var bigImg = document.createElement('img');
+					bigImg.className = 'big-img';
+					bigImg.src = src;
+					div.appendChild(closeImg);
+					div.appendChild(bigImg);
+					divParent.appendChild(div);
+					$('body').appendChild(divParent);
+					var colseBtn = $(".close-img");
+					if(colseBtn && colseBtn.length>0){
+						colseBtn.forEach(function(e,i){
+							e.bindClick(function(){
+								$('#dialog').remove();
+							});
+						});
+					}else if(colseBtn){
+						colseBtn.bindClick(function(){
+							$('#dialog').remove();
+						});
+					}
+				}
+			}
+		}();
+		$('.btn').bindClick(function(){
+			$('#file_input').click();
+		});
+		
+		$('#file_input').onchange = function(){
+			for (var file of this.files) {
+				appendFile(file);
+			}
+		}
+		var contaniner = $('.contaniner');
+		function appendFile(){
+			var path = arguments[0].name;
+			var type = path.substring(path.lastIndexOf('.')+1,path.length);
+			var name = path.substring(path.lastIndexOf('/')+1,path.lastIndexOf('.'));
+			var src = type == 'css' && 'file/css_file.png' || 
+					  type == 'html' && 'file/html_file.png' || 
+					  type == 'swf' && 'file/swf_file.png' || 
+					  type == 'txt' && 'file/txt_file.png' || 
+					  type == 'gif' && 'file/gif_file.png';
+			var str = '<img src="'+src+'" />';		  
+			if(type && type == 'jpg' || type == 'jpeg'){
+				src = window.URL.createObjectURL(arguments[0]);
+				str = '<img class="openImg" src="'+src+'"/>';
+			}
+			var html = contaniner.html()+
+						'<span>'+
+							'<div class="close"></div>'+
+							str+
+							'<i>'+name+'</i>'
+						'</span>';
+			contaniner.html(html);
+			bindTodo('.close', function(target){
+				target.parentNode.remove();
+			});
+			bindTodo('.openImg', function(target){
+				Dialog.open(target.src);
+			});
+//			bindClose();
+//			bindOpen();		
+		}
+		function bindTodo(selector, fn){
+			var bNode = $(selector);
+			if(bNode && bNode.length>0){
+				bNode.forEach(function(e,i){
+					e.bindClick(function(){
+						fn.call(this, this);
+					});
+				});
+			}else if(bNode){
+				bNode.bindClick(function(){
+					fn.call(this, this);
+				});
+			}
+		}
+//		function bindClose(){
+//			var closed = $(".close");
+//			if(closed && closed.length>0){
+//				closed.forEach(function(e,i){
+//					e.bindClick(function(){
+//						this.parentNode.remove();
+//					});
+//				});
+//			}else if(closed){
+//				closed.bindClick(function(){
+//					this.parentNode.remove();
+//				});
+//			}
+//		}
+//		function bindOpen(){
+//			var imgs = $(".openImg");
+//			if(imgs && imgs.length>0){
+//				imgs.forEach(function(e,i){
+//					e.bindClick(function(){
+//						Dialog.open(this.src);
+//					});
+//				});
+//			}else if(imgs){
+//				imgs.bindClick(function(){
+//					Dialog.open(this.src);
+//				});
+//			}
+//		}
+	</script>
+</html>

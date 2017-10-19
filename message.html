@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>测试</title>
+		<script src="js/jquery-2.1.0.js" type="text/javascript" charset="utf-8"></script>
+		<style>
+			body {
+				margin: 0;
+				padding: 2em;
+			}
+			.btn{
+				padding: 1em;
+			    background: #edcff5;
+		        box-shadow: -7px -5px 20px 0px #d25ae8 inset, 3px 3px 7px 5px #ffffff inset, 2px 3px 10px 2px #a86ea9;
+				border-radius: 0.5em;
+				cursor: pointer;
+			}
+			.checked{
+			    background: #e2a5f3;
+		        box-shadow: -7px -5px 20px 0px #cd3ae8 inset, 3px 3px 7px 5px #ffffff inset, 2px 3px 10px 2px #8b3d8c;
+			}
+			.color1{
+				background: #d5f5cf !important;
+				box-shadow: -7px -5px 20px 0px #7de85a inset, 3px 3px 7px 5px #ffffff inset, 2px 3px 10px 2px #77a96e;
+			}
+			.round-color1{
+				background: #d5f5cf !important;
+				box-shadow: -7px -5px 20px 0px #7de85a inset, 3px 3px 7px 5px #ffffff inset, 2px 3px 10px 2px #77a96e;
+			}
+			.square-color1{
+				background: #d5f5cf !important;
+				box-shadow: 2px 2px 2px 0px #ffffff inset, 3px 3px 5px 0 #91cc86;
+				border-radius: 0;
+				border: 1px solid #d1ffc9;
+			}
+			.round-color1 #text{
+				color: #59d86f !important;
+			}
+			.square-color1 #text{
+				color: #59d86f !important;
+			}
+			.color1 #text{
+				color: #59d86f !important;
+			}
+			.color2{
+				background: #f5cfcf !important;
+				box-shadow: -7px -5px 20px 0px #e85a5a inset, 3px 3px 7px 5px #ffffff inset, 2px 3px 10px 2px #a96e6e;
+			}
+			.color2 #text{
+				color: #ef8787 !important;
+			}
+			.color3{
+				background: #cfe7f5 !important;
+				box-shadow: -7px -5px 20px 0px #5aa0e8 inset, 3px 3px 7px 5px #ffffff inset, 2px 3px 10px 2px #6e93a9;
+			}
+			.color3 #text{
+				color: #59aed8 !important;
+			}
+			.color4{
+				background: #f5f4cf !important;
+				box-shadow: -7px -5px 20px 0px #e8b65a inset, 3px 3px 7px 5px #ffffff inset, 2px 3px 10px 2px #a98f6e;
+			}
+			.color4 #text{
+				color: #efd82d !important;
+			}
+			.color5{
+				background: #e8e8e8 !important;
+				box-shadow: -7px -5px 20px 0px #969696 inset, 3px 3px 7px 5px #ffffff inset, 2px 3px 10px 2px #808080;
+			}
+			.color5 #text{
+				color: #adadad !important;
+			}
+			#text{
+				text-align: center;
+				font-weight: 600;
+				color: #cb59d8;
+				text-shadow: 2px 2px 2px #ffffff;
+			}
+		</style>
+	</head>
+	<body>
+		
+		<div style="text-align: center;padding: 2em;">
+			<input type="button" name="" id="test_btn" value="按钮2.5D圆角" onclick="changeTheme(0)"/>
+			<input type="button" name="" id="test_btn" value="按钮扁平" onclick="changeTheme(1)"/>
+		</div>
+		<div class="btn">
+			<p id="text">略略略</p>
+		</div>
+		<div class="btn round-color1" style="margin-top: 1em;">
+			<p id="text">略略略</p>
+		</div>
+		<div class="btn color2" style="margin-top: 1em;">
+			<p id="text">略略略</p>
+		</div>
+		<div class="btn color3" style="margin-top: 1em;">
+			<p id="text">略略略</p>
+		</div>
+		<div class="btn color4" style="margin-top: 1em;">
+			<p id="text">略略略</p>
+		</div>
+		<div class="btn color5" style="margin-top: 1em;">
+			<p id="text">略略略</p>
+		</div>
+	</body>
+	<script>
+		function changeTheme(flag){
+			if(flag){
+				if($('.round-color1').length>0){
+					$('.round-color1').addClass('square-color1');
+					$('.round-color1').removeClass('round-color1');
+				};
+				return;
+			}
+			
+			if($('.square-color1').length>0){
+				$('.square-color1').addClass('round-color1');
+				$('.square-color1').removeClass('square-color1');
+			};
+			
+		}
+		
+		
+		
+		$('.btn').each(function(i,e){
+			var flag = 0;
+			e.onmousedown = function(){
+				checked($(this), 'checked');
+				flag = 1;
+				e.onmouseout = function(){
+					if(flag){
+						checked($(this), 'checked');
+						flag = 0;
+					}
+				};
+			};
+			e.onmouseup = function(){
+				checked($(this), 'checked');
+				flag = 0;
+			};
+			
+		});
+		function checked(target, str){
+			target.toggleClass(str);
+		}
+		
+	</script>
+</html>

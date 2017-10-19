@@ -1,0 +1,263 @@
+﻿<html>
+<head>
+<title>测试</title>
+<style>
+body{
+    background: url(http://pic.90sjimg.com/back_pic/qk/back_origin_pic/00/03/51/f59a8da6b4edacfdfdb312314e16fbf1.JPG);
+}
+.buttons{
+    text-align: center;
+	padding: 1em;
+}
+.buttons span{
+    cursor: pointer;
+	padding: 0.4em;
+    display: -webkit-inline-box;
+    background: rgb(191, 116, 216);
+    border: 1px solid #ca88ec;
+    box-shadow: 1px 1px 3px #9d3ada;
+	color:#4efb25;
+}
+.box{
+    background: #f3f3f3;
+    border: 1px solid #e2e2e2;
+    text-align: center;
+    padding: 2rem 0;
+    margin: 20rem 20rem 0 20rem;
+    font-size: 4em;
+	box-shadow: 1px 1px 2px #ebcff9 ,1px 1px 3px #ebcff9 inset;
+}
+.list{
+    float: left;
+}
+.list span{
+    user-select: none;
+	cursor: pointer;
+    margin-top: 5px;
+    display: inline-block;
+	color: #a0a998;
+    background: #fff;
+    padding: 5px;
+    border-radius: 20px;
+    box-shadow: 1px 1px 3px #FFF;
+    margin-left: 8px;
+}
+.addBox{
+	display:none;
+	width: 300px;
+    height: 200px;
+    background: rgba(255, 255, 255, 0.99);
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    margin-left: -150px;
+    margin-top: -100px;
+    text-align: center;
+}
+.addBox span{
+	cursor: pointer;
+	padding: 0.4em;
+    display: -webkit-inline-box;
+    background: rgb(191, 116, 216);
+    border: 1px solid #ca88ec;
+    box-shadow: 1px 1px 3px #9d3ada;
+	color:#4efb25;
+}
+.addBox input{
+    border: 1px solid #e2e2e2;
+    box-shadow: 1px 1px 1px #efefef inset;
+    height: 40px;
+	margin-top: 70px;
+}
+</style>
+</head>
+
+<body>
+	<p id="show_something" style="text-align:center;font-size: 24px;">吼吼吼</p>
+	<div id="list_show" class="list"></div>
+	<div id="what" class="box">点击开始随机</div>
+	<div class="buttons"><span id="start">开始</span><i style="width:5em;display: -webkit-inline-box;"></i><span id="add">添加食物</span><span id="minus">移除食物</span></div>
+	<div id="addBox" class="addBox">
+		<input type="text" id="input_food"/>
+		<div style="position: absolute;bottom: 0;left: 80px;padding: 20px;">
+			<span id="submit">确定</span>
+			<span id="close">关闭</span>
+		</div>
+	</div>
+</body>
+
+<script>
+	/*
+	var list = ['水盆','泡馍','凉皮','米线','小吃城','油泼面','蒸菜','饺子','冒菜','马虎面','胡辣汤','biangbiang面','牛肉面','热凉皮','兰州拉面','老米家','快餐','德克士','小阿妹','砂锅','盖浇饭','东面小吃城','广式蒸饭'];
+	var food = document.getElementById("what");
+	var listShow = document.getElementById("list_show");
+	var addBox = document.getElementById("addBox");
+	var timer;
+
+	function init(){
+		document.getElementById("show_something")["onclick"] = function(e){
+			alert("haaaaaaaaaaaaaaaaa~~~");
+		};
+
+		document.getElementById("start").addEventListener("click",function(e){
+			if(this.dataset.checked && this.dataset.checked=='1'){
+				this.dataset.checked = '0';
+				this.innerHTML = '开始';
+				this.style.cssText = "color:#4efb25";
+				food.style.cssText = "color:red";
+				stopRandom();
+				
+			}else{
+				this.dataset.checked = '1';
+				this.innerHTML = '停止';
+				randomFood();
+				this.style.cssText = "color:#ff8f8f";
+				food.style.cssText = "color:black";
+			}
+		},false);
+
+		document.getElementById('add').onclick = function(e){
+			addBox.style.cssText = "display:block";
+		};
+		document.getElementById('minus').onclick = function(e){
+			list.splice(list.length-1,1);
+			showList();
+		};
+		document.getElementById('submit').onclick = function(e){
+			if(document.getElementById("input_food").value){
+				list[list.length] = document.getElementById("input_food").value;
+				showList();
+			}else{
+				alert('请输入具体食物');
+			}
+			
+		};
+		document.getElementById('close').onclick = function(e){
+			addBox.style.cssText = "display:none";
+		};	
+	}
+	function showList(){
+		var str = '';
+		list.map(function(value, index, array) {
+			str += '<span data-index='+index+'>'+value+'</span>';
+		});
+		listShow.innerHTML = str;	
+
+		var spans = listShow.getElementsByTagName('span');
+		if(spans && spans.length>0){
+			for(var i=0; i<spans.length ; i++){
+				spans[i]["ondblclick"] = function(e){
+					list.splice(this.dataset.index,1);
+					this.remove();
+				}
+			}
+		}
+
+	}
+
+	function randomFood(){
+		timer = setInterval(function(){
+			food.innerHTML = list[Math.floor(Math.random()*list.length)];
+		},50);
+	}
+	function stopRandom(){
+		clearInterval(timer);
+	}
+
+	
+	showList();
+	init();
+	
+
+	*/
+
+	var Food = function(){
+		var list = ['水盆','泡馍','凉皮','米线','小吃城','油泼面','蒸菜','饺子','冒菜','马虎面','胡辣汤','biangbiang面','牛肉面','热凉皮','兰州拉面','老米家','快餐','德克士','小阿妹','砂锅','盖浇饭','东面小吃城','广式蒸饭'];
+		var food = document.getElementById("what");
+		var listShow = document.getElementById("list_show");
+		var addBox = document.getElementById("addBox");
+		var timer;
+
+		function init(){
+			document.getElementById("show_something")["onclick"] = function(e){
+				alert("haaaaaaaaaaaaaaaaa~~~");
+			};
+
+			document.getElementById("start").addEventListener("click",function(e){
+				if(this.dataset.checked && this.dataset.checked=='1'){
+					this.dataset.checked = '0';
+					this.innerHTML = '开始';
+					this.style.cssText = "color:#4efb25";
+					food.style.cssText = "color:red";
+					stopRandom();
+					
+				}else{
+					this.dataset.checked = '1';
+					this.innerHTML = '停止';
+					randomFood();
+					this.style.cssText = "color:#ff8f8f";
+					food.style.cssText = "color:black";
+				}
+			},false);
+
+			document.getElementById('add').onclick = function(e){
+				addBox.style.cssText = "display:block";
+			};
+			document.getElementById('minus').onclick = function(e){
+				list.splice(list.length-1,1);
+				showList();
+			};
+			document.getElementById('submit').onclick = function(e){
+				if(document.getElementById("input_food").value){
+					list[list.length] = document.getElementById("input_food").value;
+					showList();
+				}else{
+					alert('请输入具体食物');
+				}
+				
+			};
+			document.getElementById('close').onclick = function(e){
+				addBox.style.cssText = "display:none";
+			};
+			
+			showList();
+		}
+		function showList(){
+			var str = '';
+			list.map(function(value, index, array) {
+				str += '<span data-index='+index+'>'+value+'</span>';
+			});
+			listShow.innerHTML = str;	
+
+			var spans = listShow.getElementsByTagName('span');
+			if(spans && spans.length>0){
+				for(var i=0; i<spans.length ; i++){
+					spans[i]["ondblclick"] = function(e){
+						list.splice(this.dataset.index,1);
+						this.remove();
+					}
+				}
+			}
+
+		}
+
+		function randomFood(){
+			timer = setInterval(function(){
+				food.innerHTML = list[Math.floor(Math.random()*list.length)];
+			},50);
+		}
+		function stopRandom(){
+			clearInterval(timer);
+		}
+
+
+		return {
+			init:function(){
+				init();
+			}
+		};
+	}();
+
+	Food.init();
+</script>
+</html>

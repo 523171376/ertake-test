@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>测试</title>
+	</head>
+	<body>
+		<li>
+			<a id="time">时间</a>
+			<a class="address">地点</a>
+			<span>位置</span>
+			<span>坐标</span>
+		</li>
+	</body>
+	<script type="text/javascript">
+		function $(selector){
+			var nodeLi = document.querySelectorAll(selector);
+			if(nodeLi && nodeLi.length>1){
+				return nodeLi;
+			}else if(nodeLi.length==1){
+				return nodeLi[0];
+			}
+			return undefined;
+		}
+		if(HTMLElement){
+			HTMLElement.prototype.html = function(){
+				if(arguments[0]){
+					this.innerHTML = arguments[0];
+				}
+				return this.innerHTML;
+			}
+			HTMLElement.prototype.click = function(fn, capture){
+		        if (addEventListener) {
+		            this.addEventListener("click", function(e) {
+		                fn.call(this, e);
+		            }, capture);
+		        } else if (attachEvent) {
+		            this.attachEvent("onclick", function(e) {
+		                fn.call(this, e);
+		            });
+		        } 
+			}
+		}
+		NodeList.prototype.html = function(){
+			var str ='';
+			this.forEach(function(v,i){
+				str += v.innerHTML + ',';
+			});
+			str = str.substr(0,str.length-1);
+			return str;
+		}
+		console.log($('#time').html("我的时间"));
+		console.log($('.address').html());
+		console.log($('span').html());
+		console.log($('p'));
+		
+		$('#time').click(function(e){
+			alert("点击了我的时间");
+		});
+		
+		var p = function(fn){
+			var param = {};
+			param['result'] = fn();
+			param['initFn'] = fn;
+			
+			return {init: function(){
+						console.log("初始化成功！"+arguments[0]);
+					},
+					getResult: function(){
+						return param.result;
+					},
+					getInFn: function(){
+						return param.initFn;
+					}
+			};
+		}(function(){
+			//处理逻辑
+			var result = '初始化相关参数';
+			return result;
+		});
+		
+		p.init('哈哈哈!');
+		console.log("初始化结果-"+p.getResult());
+		console.log("初始化方法-"+p.getInFn());
+		
+		var P = function(){
+			var param = {"result":"初始化参数"};
+			this.init = function(){
+				console.log("初始化成功！"+arguments[0]);
+			}
+			this.getResult = function(){
+				return param.result;
+			}
+		}
+		var ppp = new P();
+		ppp.init("略略略！");
+		console.log("PPP的初始化参数："+ppp.getResult());
+		
+		
+		
+
+
+	</script>
+</html>
