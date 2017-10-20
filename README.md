@@ -5,3 +5,6 @@
 
 
 ![--标题--](https://github.com/523171376/ertake-button/blob/master/screenshot/b1.gif)
+
+
+![--XXX--](https://github.com/523171376/ertake-button/blob/master/screenshot/c1.gif)
